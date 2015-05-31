@@ -49,15 +49,15 @@ nabla_delta <- 2.0*Sigma %*% Delta
 nabla_gamma <- matrix.trace(Sigma%*%Gamma)*Sigma
 sigma_P <- sqrt(0.5*t(Delta) %*% nabla_delta + 0.5*matrix.trace(Gamma%*%nabla_gamma))
 
-component.mu    <- matrix(, nrow = M, ncol = 1)
-component.sigma2 <- matrix(, nrow = M, ncol = 1)
-component.VaR <- matrix(, nrow = M, ncol = 1)
+instrument.mu    <- matrix(, nrow = M, ncol = 1)
+instrument.sigma2 <- matrix(, nrow = M, ncol = 1)
+instrument.VaR <- matrix(, nrow = M, ncol = 1)
 
 for (idx in 1:M){
-  component.mu[idx]     <-calcComponentMean(idx)  
-  component.sigma2[idx] <-calcComponentVariance(idx)
+  instrument.mu[idx]     <-calcComponentMean(idx)  
+  instrument.sigma2[idx] <-calcComponentVariance(idx)
   # Calculate instrument component VaR
-  component.VaR[idx]    <- -(component.mu[idx] + (z+ 1/6*(z^2-1)*s + 1/24*(z^3-3*z)*(k-3) - 1/36*(2*z^3-5*z)*s^2)*component.sigma2[idx]/sigma_P)
+  instrument.VaR[idx]    <- -(instrument.mu[idx] + (z+ 1/6*(z^2-1)*s + 1/24*(z^3-3*z)*(k-3) - 1/36*(2*z^3-5*z)*s^2)*instrument.sigma2[idx]/sigma_P)
 }
 # Calculate total VaR
 VaR <- -(mu[1] + (z+ 1/6*(z^2-1)*s + 1/24*(z^3-3*z)*(k-3) - 1/36*(2*z^3-5*z)*s^2)*sigma_P) 
