@@ -14,8 +14,8 @@ for (i in 1:3){
   manager.sigma2 <-0
   
   for (j in managers[[i]]){
-    manager.mu <- manager.mu + com_mu[j]  
-    manager.sigma2 <- manager.sigma2 + com_sigma2[j]
+    manager.mu <- manager.mu + instrument.mu[j]  
+    manager.sigma2 <- manager.sigma2 + instrument.sigma2[j]
   }
   # Calculcate the manager compomnent VaR
   manager.VaR[i] <- -(manager.mu + (z+ 1/6*(z^2-1)*s + 1/24*(z^3-3*z)*(k-3) - 1/36*(2*z^3-5*z)*s^2)*manager.sigma2/sigma_P)
